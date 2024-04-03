@@ -151,7 +151,7 @@ export default component$(() => {
                   </div>
                   <div class="ml-3 text-sm">
                     <label
-                      for="terms"
+                    for="terms" 
                       class="font-light text-gray-500 dark:text-gray-300"
                     >
                       I accept the &nbsp;
