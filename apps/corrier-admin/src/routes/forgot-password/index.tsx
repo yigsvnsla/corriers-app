@@ -1,15 +1,14 @@
 import type { Input } from "valibot";
-import type { QRL } from "@builder.io/qwik";
-import type { FormResponse, SubmitHandler } from "@modular-forms/qwik";
-import { component$, $, useSignal } from "@builder.io/qwik";
+import type { FormResponse } from "@modular-forms/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
+import { boolean, email, minLength, object, string, value } from "valibot";
 import {
-  valiForm$,
   type InitialValues,
+  valiForm$,
   useForm,
   formAction$,
 } from "@modular-forms/qwik";
-import { boolean, email, minLength, object, string, value } from "valibot";
 
 const ForgotPasswordSchema = object({
   email: string([
@@ -40,11 +39,13 @@ export const useFormAction = formAction$<ForgotPasswordForm, FormResponse<any>>(
       body: JSON.stringify({ email }),
     });
     const { ok } = await res.json();
-    if (ok)
-      return {
-        status: "success",
-        message: "mail is sended",
-      };
+    if (!ok) return;
+
+    console.log("mail is sended");
+    return {
+      status: "success",
+      message: "mail is sended",
+    };
   },
   valiForm$(ForgotPasswordSchema),
 );
@@ -61,8 +62,10 @@ export default component$(() => {
     validate: valiForm$(ForgotPasswordSchema),
   });
 
-  const handleSubmit: QRL<SubmitHandler<ForgotPasswordForm>> = $(() => {
-    console.log("handlesubmit client", forgotPasswordForm.response.data);
+  useTask$(({ track }) => {
+    track(() => forgotPasswordForm.response);
+    if (forgotPasswordForm.response.status !== "success") return;
+    isMailSend.value = true;
   });
 
   return (
@@ -104,7 +107,6 @@ export default component$(() => {
               <Form
                 responseDuration={3}
                 class="mt-4 space-y-4 md:space-y-5 lg:mt-5"
-                onSubmit$={handleSubmit}
               >
                 <div>
                   <Field name="email" type="string">
@@ -149,7 +151,7 @@ export default component$(() => {
                   </div>
                   <div class="ml-3 text-sm">
                     <label
-                      for="terms"
+                    for="terms" 
                       class="font-light text-gray-500 dark:text-gray-300"
                     >
                       I accept the &nbsp;
