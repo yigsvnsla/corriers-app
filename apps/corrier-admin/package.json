@@ -47,7 +47,9 @@
   },
   "dependencies": {
     "@modular-forms/qwik": "^0.23.1",
+    "clsx": "^2.1.0",
     "flowbite": "^2.3.0",
+    "tailwind-merge": "^2.2.2",
     "valibot": "^0.30.0"
   }
 }
