@@ -14,6 +14,9 @@ export default ({ env }) => ({
       jwt: {
         expiresIn: "1d",
       },
+      register: {
+        allowedFields: ["role"],
+      },
     },
   },
 });

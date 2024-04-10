@@ -4,7 +4,7 @@
   "info": {
     "singularName": "package",
     "pluralName": "packages",
-    "displayName": "package",
+    "displayName": "Package",
     "description": ""
   },
   "options": {
@@ -12,14 +12,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "value": {
-      "type": "decimal"
-    },
-    "user": {
+    "profile": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
+      "target": "api::profile.profile",
       "inversedBy": "packages"
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "recibed",
+        "active"
+      ]
     }
   }
 }
