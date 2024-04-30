@@ -69,7 +69,7 @@ export default component$(() => {
         </Aside.Content>
         <Aside.Footer>dsadas</Aside.Footer>
       </Aside>
-      <main class="min-h-screen p-4 pt-20 dark:text-gray-200 md:ml-64">
+      <main class="flex min-h-screen flex-col p-4 pt-20 dark:text-gray-200 md:ml-64">
         <Breadcrumb>
           {routes.map((route, index, arr) => (
             <Crumb

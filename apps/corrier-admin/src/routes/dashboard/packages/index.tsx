@@ -2,13 +2,12 @@ import { component$ } from "@builder.io/qwik";
 
 export default component$(() => (
   <>
-    <h2 class=" mb-4 text-3xl font-extrabold capitalize leading-none tracking-tight text-gray-900 dark:text-white md:text-4xl">
-      packages
-    </h2>
-
-    <section class="flex items-center bg-gray-50 dark:bg-gray-900">
-      <div class="mx-auto w-full  px-4 lg:px-12">
-        {/* <!-- Start coding here --> */}
+    <section class="my-auto flex flex-col h-full bg-gray-50 dark:bg-gray-900">
+      <h2 class="m-4 text-3xl font-extrabold capitalize leading-none tracking-tight text-gray-900 dark:text-white md:text-4xl">
+        list of packages
+      </h2>
+      <div class="mx-auto w-full  px-4 ">
+        {/* <!-- Start coding here --> lg:px-12*/}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           {/* HEADER */}
           <div class="relative bg-white dark:bg-gray-800 ">
@@ -221,6 +220,7 @@ export default component$(() => (
               </div>
             </div>
           </div>
+          
           {/* TABLE */}
           <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
