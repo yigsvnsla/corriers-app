@@ -1,5 +1,9 @@
-import type { HTMLAttributes } from "@builder.io/qwik";
-import type { LinkProps } from "@builder.io/qwik-city";
+import type {
+  PropsOf,
+  Component,
+  HTMLAttributes,
+  QwikIntrinsicElements,
+} from "@builder.io/qwik";
 import { Slot, component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { cn } from "~/utils/cn";
@@ -24,14 +28,14 @@ interface AsideContentComponentProps
   // more ...props
 }
 
-interface AsideItemComponentProps extends LinkProps {
-  wrapper?: HTMLAttributes<HTMLElementTagNameMap["li"]>;
+type AsideItemComponentProps<C extends keyof QwikIntrinsicElements | Component<C>> = PropsOf<string extends C ? any : C> & {
+  as?: C ;
+  wrapper: HTMLAttributes<HTMLElementTagNameMap["li"]>;
   // more ...props
-}
+};
 
 interface AsideDropdownComponentProps
-  extends HTMLAttributes<HTMLElementTagNameMap["button"]> {
-  wrapper?: HTMLAttributes<HTMLElementTagNameMap["li"]>;
+  extends HTMLAttributes<HTMLElementTagNameMap["li"]> {
   // more ...props
 }
 
@@ -345,70 +349,34 @@ const Section = component$<AsideSectionComponentProps>(
   ),
 );
 
-const Item = component$<AsideItemComponentProps>(
-  ({ class: classList, wrapper, ...props }) => (
-    <li {...wrapper} class={cn("", wrapper?.class)}>
-      <Link
-        {...props}
-        class={cn(
-          "group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
-          classList,
-        )}
-      >
-        <Slot name="icon" />
-        <Slot name="content" />
-        <Slot />
-      </Link>
+const Item = component$<AsideItemComponentProps<any>>(
+  ({as: Component = Link, class: ClassList, wrapper, ...props }) => {
+    return (
+      <li {...wrapper} class={cn("", wrapper?.class)}>
+        <Component
+          {...props}
+          class={cn(
+            "group flex  items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
+            ClassList,
+          )}
+        >
+          <Slot name="icon" />
+          <Slot name="content" />
+          <Slot />
+        </Component>
+      </li>
+    );
+  },
+);
+
+const DropDown = component$<AsideDropdownComponentProps>(
+  ({ class: classList, ...props }) => (
+    <li {...props} class={cn("", classList)}>
+      <Slot name="label" />
+      <Slot name="content" />
+      <Slot />
     </li>
   ),
-);
-
-const _DropDown = component$<AsideDropdownComponentProps>(
-  ({ class: classList, wrapper, ...props }) => (
-    <li {...wrapper} class={cn("", wrapper?.class)}>
-      <button
-        {...props}
-        type="button"
-        class={cn(
-          "group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
-          classList,
-        )}
-        aria-controls="dropdown-pages"
-        data-collapse-toggle="dropdown-pages"
-      ></button>
-
-      <ul id="dropdown-pages" class="hidden space-y-2 py-2">
-        <li>
-          <a
-            href="#"
-            class="group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-          >
-            Settings
-          </a>
-        </li> 
-      </ul>
-    </li>
-  ),
-);
-
-const _DropDownContent = component$<AsideHeaderComponentProps>(
-  ({ class: classList, ...props }) => (
-    <Section {...props} class={cn("hidden space-y-2 py-2", classList)}>
-      dsads
-    </Section>
-  ),
-);
-
-const _DropDownItem = component$<AsideHeaderComponentProps>(
-  ({ class: classList, ...props }) => (
-    <Section {...props} class={cn("hidden space-y-2 py-2", classList)}>
-      dsads
-    </Section>
-  ),
-);
-
-const DropDown = Object.freeze(
-  Object.assign(_DropDown, { Content: _DropDownContent, Item: _DropDownItem }),
 );
 
 const Aside = Object.freeze(

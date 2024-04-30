@@ -17,7 +17,9 @@ type ActionResponse = Partial<{
   message: string;
   data: ResponseData;
 }>;
+
 type ActionResponseOptions = { duration: Maybe<SetResponseOptions> };
+
 declare function setFormActionResponse(
   params: ActionResponse,
   options?: ActionResponseOptions,
@@ -133,6 +135,7 @@ export default component$(() => {
                     </label>
                     <input
                       {...props}
+                      hidden
                       value={field.value}
                       type="email"
                       name="email"
