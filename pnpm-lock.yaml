@@ -122,6 +122,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
 
+  apps/corrier-api/dist/src/api/package/documentation/1.0.0: {}
+
   apps/corrier-api/src/api/package/documentation/1.0.0: {}
 
 packages:
