@@ -3,14 +3,14 @@ import { Aside } from "~/components/aside";
 import { Icons } from "~/components/icons";
 import { Link } from "@builder.io/qwik-city";
 import { Slot, component$ } from "@builder.io/qwik";
-import { Breadcrumb, Crumb } from "~/components/breadcrumb";
-import { useLocation } from "@builder.io/qwik-city";
+// import { Breadcrumb, Crumb } from "~/components/breadcrumb";
+// import { useLocation } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  const location = useLocation();
-  const routes = location.url.pathname
-    .split("/")
-    .filter((route) => route != "");
+  // const location = useLocation();
+  // const routes = location.url.pathname
+  //   .split("/")
+  //   .filter((route) => route != "");
 
   return (
     <section class="bg-gray-50 antialiased dark:bg-gray-900">
@@ -29,6 +29,12 @@ export default component$(() => {
               <Icons.ChartPie></Icons.ChartPie>
               <span class="ml-3">item 1</span>
             </Aside.Item>
+
+            <Aside.Item as={Link} href="404">
+              <Icons.ChartPie></Icons.ChartPie>
+              <span class="ml-3">item 2</span>
+            </Aside.Item>
+
 
             <Aside.Item as={Link} href="404">
               <Icons.ChartPie></Icons.ChartPie>
@@ -70,7 +76,7 @@ export default component$(() => {
         <Aside.Footer>dsadas</Aside.Footer>
       </Aside>
       <main class="flex min-h-screen flex-col p-4 pt-20 dark:text-gray-200 md:ml-64">
-        <Breadcrumb>
+        {/* <Breadcrumb>
           {routes.map((route, index, arr) => (
             <Crumb
               isActive={arr[arr.length - 1] === route}
@@ -81,7 +87,7 @@ export default component$(() => {
               {route}
             </Crumb>
           ))}
-        </Breadcrumb>
+        </Breadcrumb> */}
         <Slot></Slot>
       </main>
     </section>

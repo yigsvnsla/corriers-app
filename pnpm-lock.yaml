@@ -17,6 +17,9 @@ importers:
       '@modular-forms/qwik':
         specifier: ^0.23.1
         version: 0.23.1(@builder.io/qwik-city@1.5.1)(@builder.io/qwik@1.5.1)
+      '@tanstack/qwik-table':
+        specifier: ^8.16.0
+        version: 8.16.0(@builder.io/qwik@1.5.1)
       clsx:
         specifier: ^2.1.0
         version: 2.1.0
@@ -3928,6 +3931,21 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       defer-to-connect: 2.0.1
+    dev: false
+
+  /@tanstack/qwik-table@8.16.0(@builder.io/qwik@1.5.1):
+    resolution: {integrity: sha512-w2JNogbBfjYwUNcIyqlSCRQvfoxsgPKYP/p2ya2w3308+eN9+u2yGMeY+VyxgDGqv/IVX1wr2xWXRyGGapiB8g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@builder.io/qwik': '>=1.5'
+    dependencies:
+      '@builder.io/qwik': 1.5.1(@types/node@20.12.2)(undici@6.10.2)
+      '@tanstack/table-core': 8.16.0
+    dev: false
+
+  /@tanstack/table-core@8.16.0:
+    resolution: {integrity: sha512-dCG8vQGk4js5v88/k83tTedWOwjGnIyONrKpHpfmSJB8jwFHl8GSu1sBBxbtACVAPtAQgwNxl0rw1d3RqRM1Tg==}
+    engines: {node: '>=12'}
     dev: false
 
   /@tootallnate/once@2.0.0:
