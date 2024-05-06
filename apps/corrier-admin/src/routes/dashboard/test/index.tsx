@@ -15,8 +15,41 @@ type User = {
 
 export default component$(() => {
   const columns: ColumnDef<User>[] = [
+    {
+      accessorKey: "Id",
+      cell(props) {
+        return `${props.row.index}`;
+      },
+    },
     { accessorKey: "firstName" },
     { accessorKey: "lastName" },
+    {
+      accessorKey: "actions",
+      cell() {
+        return (
+          <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button
+              type="button"
+              class="rounded-s-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+            >
+              Profile
+            </button>
+            <button
+              type="button"
+              class="border-b border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+            >
+              Settings
+            </button>
+            <button
+              type="button"
+              class="rounded-e-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+            >
+              Messages
+            </button>
+          </div>
+        );
+      },
+    },
   ];
   const data = useSignal<User[]>([
     {
@@ -40,6 +73,14 @@ export default component$(() => {
   const table = useQwikTable({
     columns,
     data: data.value,
+    initialState: {
+      sorting: [
+        {
+          id: "id",
+          desc: true, //sort by age in descending order by default
+        },
+      ],
+    },
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -261,11 +302,15 @@ export default component$(() => {
           </div>
         </div>
         <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400 ">
-          <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+          <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400 ">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th scope="col" key={header.id} class="px-6 py-3">
+                  <th
+                    scope="col"
+                    key={header.id}
+                    class="px-6 py-3 last:text-center"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -282,13 +327,13 @@ export default component$(() => {
             {table.getRowModel().rows.map((row) => {
               return (
                 <tr
-                  class="group border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 odd:dark:bg-gray-900 even:dark:bg-gray-800"
+                  class="group border-b  odd:bg-white even:bg-gray-50 dark:border-gray-700 odd:dark:bg-gray-900 even:dark:bg-gray-800"
                   key={row.id}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td
                       scope="row"
-                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white last:text-center"
                       key={cell.id}
                     >
                       {flexRender(
