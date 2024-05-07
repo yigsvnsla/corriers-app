@@ -1,7 +1,12 @@
 import { component$, useSignal } from "@builder.io/qwik";
 import { useQwikTable } from "~/utils/useQwikTable";
 import type { ColumnDef } from "@tanstack/qwik-table";
-import { flexRender, getCoreRowModel } from "@tanstack/qwik-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+} from "@tanstack/qwik-table";
+import { Icons } from "~/components/icons";
 
 //TData
 type User = {
@@ -17,6 +22,7 @@ export default component$(() => {
   const columns: ColumnDef<User>[] = [
     {
       accessorKey: "Id",
+      sortingFn: "basic",
       cell(props) {
         return `${props.row.index}`;
       },
@@ -81,6 +87,7 @@ export default component$(() => {
         },
       ],
     },
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -100,19 +107,7 @@ export default component$(() => {
                 </label>
                 <div class="relative w-full">
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg
-                      aria-hidden="true"
-                      class="h-5 w-5 text-gray-500 dark:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
+                    <Icons.Search />
                   </div>
                   <input
                     type="text"
@@ -129,19 +124,7 @@ export default component$(() => {
                 type="button"
                 class="flex items-center justify-center rounded-lg bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                <svg
-                  class="mr-2 h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                  />
-                </svg>
+                <Icons.Add />
                 Add product
               </button>
               <div class="flex w-full items-center space-x-3 md:w-auto">
@@ -151,19 +134,7 @@ export default component$(() => {
                   class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
                   type="button"
                 >
-                  <svg
-                    class="-ml-1 mr-1.5 h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
+                  <Icons.ChevronDown class="-ml-1 mr-1.5 h-5 w-5" />
                   Actions
                 </button>
                 <div
@@ -198,33 +169,9 @@ export default component$(() => {
                   class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
                   type="button"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    class="mr-2 h-4 w-4 text-gray-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Icons.Filter class="-ml-1 mr-1.5 h-5 w-5" />
                   Filter
-                  <svg
-                    class="-mr-1 ml-1.5 h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
+                  <Icons.ChevronDown class="-mr-1 ml-1.5 h-5 w-5" />
                 </button>
                 {/* <!-- Dropdown menu --> */}
                 <div
@@ -307,9 +254,13 @@ export default component$(() => {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
-                    scope="col"
                     key={header.id}
+                    colSpan={header.colSpan}
+                    scope="col"
                     class="px-6 py-3 last:text-center"
+                    {...{
+                      onclick: header.column.getToggleSortingHandler,
+                    }}
                   >
                     {header.isPlaceholder
                       ? null
@@ -333,7 +284,7 @@ export default component$(() => {
                   {row.getVisibleCells().map((cell) => (
                     <td
                       scope="row"
-                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white last:text-center"
+                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 last:text-center dark:text-white"
                       key={cell.id}
                     >
                       {flexRender(
